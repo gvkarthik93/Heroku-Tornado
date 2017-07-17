@@ -6,6 +6,8 @@ import tornado.web
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
         self.write("Heroku app deployed")
+        if self.path == '/awesome':
+            self.write("Heroku is awesome")
  
 def main():
     application = tornado.web.Application([
