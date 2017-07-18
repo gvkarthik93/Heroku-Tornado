@@ -6,10 +6,15 @@ import tornado.web
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
         self.write("Heroku is awesome")
+
+class TestHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.write("Test handler is working")
  
 def main():
     application = tornado.web.Application([
         (r"/", MainHandler),
+        (r"/test", TestHandler),
     ])
     http_server = tornado.httpserver.HTTPServer(application)
     port = int(os.environ.get("PORT", 5000))
