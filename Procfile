@@ -1,1 +1,1 @@
-web: python -m SimpleHTTPServer 5001
+web: python main.py
