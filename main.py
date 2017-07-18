@@ -7,7 +7,7 @@ import os
 
 class myHandler(BaseHTTPRequestHandler):
     def do_GET(self):
-        self.write("Heroku is awesome")
+        self.write("searchDetail:Detail".encode("utf-8"))
 
 class ThreadedTCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
     pass
