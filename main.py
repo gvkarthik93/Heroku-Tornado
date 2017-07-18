@@ -1,14 +1,8 @@
 import http.server
 from http.server import HTTPServer, BaseHTTPRequestHandler
 import socketserver
-from os import curdir, sep
-import mimetypes
-import cgi
-import threading
-import sqlite3
-import json
 
-PORT = 8001
+PORT = 5001
 
 class myHandler(BaseHTTPRequestHandler):
     def do_GET(self):
@@ -20,7 +14,6 @@ class ThreadedTCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
 try:
     server = ThreadedTCPServer(('', PORT), myHandler)
     print ('Started httpserver on port ' , PORT)
-    
     ip,port = server.server_address
     server_thread = threading.Thread(target=server.serve_forever)
     server_thread.daemon = True
