@@ -1,31 +1,20 @@
-import http.server
-from http.server import HTTPServer, BaseHTTPRequestHandler
-import socketserver
-import threading
 import os
-
-
-class myHandler(BaseHTTPRequestHandler):
-    def do_GET(self):
-        if self.path == "/":
-            self.wfile.write("searchDetail:Detail".encode("utf-8"))
-        if self.path == "/test":
-            self.wfile.write("searchDetail:Detail".encode("utf-8"))
-
-class ThreadedTCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
-    pass
-
-try:
-    PORT = int(os.environ.get("PORT", 5000))
-    server = ThreadedTCPServer(('', PORT), myHandler)
-    print ('Started httpserver on port ' , PORT)
-    ip,port = server.server_address
-    server_thread = threading.Thread(target=server.serve_forever)
-    server_thread.daemon = True
-    server_thread.start()
-    allow_reuse_address = True
-    server.serve_forever()
-
-except KeyboardInterrupt:
-    print ('CTRL + C RECEIVED - Shutting down the REST server')
-    server.socket.close()
+import tornado.httpserver
+import tornado.ioloop
+import tornado.web
+ 
+class MainHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.write("Heroku is awesome")
+ 
+def main():
+    application = tornado.web.Application([
+        (r"/", MainHandler),
+    ])
+    http_server = tornado.httpserver.HTTPServer(application)
+    port = int(os.environ.get("PORT", 5000))
+    http_server.listen(port)
+    tornado.ioloop.IOLoop.instance().start()
+ 
+if __name__ == "__main__":
+    main()
