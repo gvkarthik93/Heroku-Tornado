@@ -13,7 +13,7 @@ PORT = 8001
 class myHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         if self.path=="/":
-            self.wfile.write("{searchDetail:Detail}".encode("utf-8"))
+            self.wfile.write("Hello")
 
         try:
             f = open(curdir + sep + self.path, 'rb')
