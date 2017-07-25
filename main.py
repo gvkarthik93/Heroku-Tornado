@@ -5,7 +5,7 @@ import tornado.web
  
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
-        self.write("Heroku is awesome")
+        self.render('public/index.html')
 
 class TestHandler(tornado.web.RequestHandler):
     def get(self):
@@ -15,6 +15,7 @@ def main():
     application = tornado.web.Application([
         (r"/", MainHandler),
         (r"/test", TestHandler),
+        (r'/public/(.*)', tornado.web.StaticFileHandler, {'path': 'public/'}),
     ])
     http_server = tornado.httpserver.HTTPServer(application)
     port = int(os.environ.get("PORT", 5000))
