@@ -11,14 +11,14 @@ class MainHandler(tornado.web.RequestHandler):
 
 class TestHandler(tornado.web.RequestHandler):
     def get(self):
-        self.write("Test handler is working")
+        self.write("Test handler is up and running")
 
 class TensorHandler(tornado.web.RequestHandler):
     def get(self):
-        hello = tf.constant('Hello, TensorFlow!')
+        serverStatus = tf.constant('TensorFlow Server is up and running')
         sess = tf.Session()
-        print(sess.run(hello))
-        self.write(sess.run(hello))
+        print(sess.run(serverStatus))
+        self.write(sess.run(serverStatus))
 
 def main():
     application = tornado.web.Application([
